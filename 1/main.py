@@ -31,7 +31,7 @@ def sliding_window_measurments() -> int:
     window = 0
     previous_total = 0
     while window <= total_windows:
-        current_total = sum(inputs[window: window + 3])
+        current_total = sum(inputs[window: window + window_size])
         if window and current_total > previous_total:
             increased += 1
 
