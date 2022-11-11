@@ -63,6 +63,7 @@ func part1better(ip []string) {
 	fmt.Println("Power Consumption", gammaRate*epsilionRate)
 }
 
+// Power Consumption rating
 func part1(ip []string) {
 	// Considering all bits to have same length
 	individualIpLength := len(ip[0])
@@ -104,12 +105,59 @@ func part1(ip []string) {
 	fmt.Println("Power Consumption", gammaRate*epsilionRate)
 }
 
-func part2() {
+func bitCriteriaEvaluation(ips []string, pos int, evalCriteria string) string {
+	splits := make(map[string][]string)
+	var adjustedIps []string
 
+	for _, val := range ips {
+		if val[pos] == 48 {
+			splits["0"] = append(splits["0"], val)
+		} else {
+			splits["1"] = append(splits["1"], val)
+		}
+	}
+
+	if evalCriteria == "most" {
+		if len(splits["1"]) >= len(splits["0"]) {
+			adjustedIps = splits["1"]
+		} else {
+			adjustedIps = splits["0"]
+		}
+	} else {
+		if len(splits["0"]) <= len(splits["1"]) {
+			adjustedIps = splits["0"]
+		} else {
+			adjustedIps = splits["1"]
+		}
+	}
+
+	// fmt.Println("Adjusted Ips are: ", adjustedIps)
+
+	// Breaking out
+	if len(adjustedIps) == 1 {
+		return adjustedIps[0]
+	}
+
+	pos++
+
+	// We can also add a check against pos overflowing
+
+	return bitCriteriaEvaluation(adjustedIps, pos, evalCriteria)
+}
+
+// Life Support rating
+func part2(ip []string) {
+	oxyGenRating := bitsToInt(bitCriteriaEvaluation(ip, 0, "most"))
+	co2SrubRating := bitsToInt(bitCriteriaEvaluation(ip, 0, "least"))
+
+	fmt.Println("Oxygen Gen rating", oxyGenRating)
+	fmt.Println("CO2 Srubber rating", co2SrubRating)
+	fmt.Println("Life Support Rating", oxyGenRating*co2SrubRating)
 }
 
 func main() {
 	ip := readInput("./3/input/input")
 	// part1(ip)
-	part1better(ip)
+	// part1better(ip)
+	part2(ip)
 }
