@@ -156,7 +156,7 @@ func part2(ip []string) {
 }
 
 func main() {
-	ip := readInput("./3/input/input")
+	ip := readInput("./input/input")
 	// part1(ip)
 	// part1better(ip)
 	part2(ip)

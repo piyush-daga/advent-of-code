@@ -71,8 +71,7 @@ func part2(inputArr []string) {
 }
 
 func main() {
-	// inputArr := readInput("./2/input/input_small")
-	inputArr := readInput("./2/input/input")
+	inputArr := readInput("./input/input")
 	// part1(inputArr)
 	part2(inputArr)
 }
