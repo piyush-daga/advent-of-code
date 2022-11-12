@@ -137,21 +137,14 @@ func (b *Board) mark(draw string) {
 	}
 }
 
-func main() {
-	draws, boards := readInput("./input/input_small")
+func runBingoSimulationPart1(draws []string, boards []Board) {
 
 	var completedBoardIndex int
 	var latestDraw int
 	complete := false
 
-	mode := "last" // "first" For the first winnner
-	completedBoardIndexes := make([]int, len(boards))
-
 	for _, d := range draws {
 		for i := range boards {
-			if mode == "last" && 
-
-
 			boards[i].mark(d)
 			fmt.Println("Draw is: ", d)
 			boards[i].prettyPrint()
@@ -163,7 +156,6 @@ func main() {
 				break
 			}
 		}
-
 		if complete {
 			break
 		}
@@ -172,4 +164,63 @@ func main() {
 	fmt.Println("Completed board index", completedBoardIndex)
 	fmt.Println("Sum of elements of winning board", boards[completedBoardIndex].sum())
 	fmt.Println("Final Score", boards[completedBoardIndex].sum()*latestDraw)
+}
+
+func inSlice(vals []int, k int) bool {
+	for _, v := range vals {
+		if v == k {
+			return true
+		}
+	}
+
+	return false
+}
+
+func runBingoSimulationPart2(draws []string, boards []Board) {
+	// We have to traverse till the last winning board
+	var completedBoardIndex int
+	var latestDraw int
+	complete := false
+
+	// It should not hold all the boards
+	completedBoardIndexes := make([]int, 0, len(boards))
+
+	for _, d := range draws {
+		// fmt.Println("Draw is: ", d)
+
+		for i := range boards {
+			if inSlice(completedBoardIndexes, i) {
+				continue
+			}
+			boards[i].mark(d)
+
+			fmt.Println("Draw is: ", d)
+			boards[i].prettyPrint()
+
+			if boards[i].isComplete() {
+				completedBoardIndexes = append(completedBoardIndexes, i)
+
+				if len(completedBoardIndexes) == len(boards) {
+					completedBoardIndex = i
+					latestDraw, _ = strconv.Atoi(d)
+					complete = true
+
+					break
+				}
+			}
+		}
+		if complete {
+			break
+		}
+	}
+
+	fmt.Println("Completed board index", completedBoardIndex)
+	fmt.Println("Sum of elements of winning board", boards[completedBoardIndex].sum())
+	fmt.Println("Final Score", boards[completedBoardIndex].sum()*latestDraw)
+}
+
+func main() {
+	draws, boards := readInput("./input/input")
+	runBingoSimulationPart1(draws, boards)
+	runBingoSimulationPart2(draws, boards)
 }
