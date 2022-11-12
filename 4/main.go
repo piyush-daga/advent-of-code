@@ -151,7 +151,7 @@ func main() {
 		for i := range boards {
 			if mode == "last" && 
 
-			
+
 			boards[i].mark(d)
 			fmt.Println("Draw is: ", d)
 			boards[i].prettyPrint()

@@ -11,9 +11,9 @@ Inputs:
   - Testing input is present in `${foldername}/input/input`.
   
 Running:
-  ```shell
+  ```bash
   make folder=<foldername>
-  
+
   # Example
   make folder=2 # To run the Day 2 code.
   make folder=4 # To run the Day 4 code.
