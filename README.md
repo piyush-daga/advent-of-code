@@ -12,9 +12,9 @@ Inputs:
   
 Running:
   ```bash
-  make folder=<foldername>
+  make year=<year> folder=<foldername>
 
   # Example
-  make folder=2 # To run the Day 2 code.
-  make folder=4 # To run the Day 4 code.
+  make year=2021 folder=2 # To run the 2021 -> Day 2 code.
+  make year=2021 folder=4 # To run the 2021 -> Day 4 code.
   ```
