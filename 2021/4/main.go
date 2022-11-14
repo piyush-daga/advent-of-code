@@ -36,7 +36,6 @@ func createBingoBoard(ip string) Board {
 }
 
 func readInput(fpath string) ([]string, []Board) {
-	// numDraw := make([]string, 0, 100)
 	var numDraw []string
 
 	bData, err := os.ReadFile(fpath)
