@@ -1,3 +1,4 @@
+.PHONY: execute
 execute:
 ifndef folder
 	echo "Target folder not passed. Exiting !!" && exit 1
