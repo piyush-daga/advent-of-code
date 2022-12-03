@@ -28,20 +28,8 @@ def main(fname: str) -> int:
     priority.update({chr(c): i for i, c in enumerate(range(65, 91), start=27)})
 
     for d in data:
-        items = defaultdict(int)
-
         first, second = d[: len(d)//2], d[(len(d)//2): ]
-
-        for f in first:
-            items[f] += 1
-
-        # If a same item is found
-        for s in second:
-            if items[s]:
-                result += priority[s]
-
-
-                break
+        result += priority[set(first).intersection(set(second)).pop()]
 
     print(f"Result of part 1: {result}")
 
