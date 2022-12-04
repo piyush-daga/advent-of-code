@@ -27,21 +27,16 @@ def main(fname: str) -> int:
         e1 = [int(s) for s in sec1.split("-")]
         e2 = [int(s) for s in sec2.split("-")]
 
-        if e1[0] >= e2[0] and e1[1] <= e2[1]:
-            fully_inclusive += 1
-        elif e2[0] >= e1[0] and e2[1] <= e1[1]:
-            fully_inclusive += 1
+        # A better way
+        s1 = set(list(range(e1[0], e1[1] + 1)))
+        s2 = set(list(range(e2[0], e2[1] + 1)))
 
-
+        if s1.issuperset(s2) or s1.issubset(s2):
+            fully_inclusive += 1
 
         # Section2
-        if e1[0] <= e2[0] and e1[1] >= e2[0]:
+        if s1.intersection(s2):
             inclusive += 1
-        elif e1[0] >= e2[0] and e1[1] <= e2[1]:
-            inclusive += 1
-        elif e1[0] >= e2[0] and e1[0] <= e2[1]:
-            inclusive += 1
-
 
     print("Full inclusive:", fully_inclusive)
     print("Partially inclusive:", inclusive)
