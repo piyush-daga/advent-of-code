@@ -20,7 +20,7 @@ def first_occurrence_of_non_repeats(data: str):
     result = 0
     for i, d in enumerate(data):
         # For first part
-        # c = Counter(data[i: i+14])
+        # c = Counter(data[i: i+4])
         # For second part
         c = Counter(data[i: i+14])
         val = c.most_common(1)[0][1]
@@ -34,6 +34,9 @@ def first_occurrence_of_non_repeats(data: str):
 def main(fname: str) -> None:
     data = read_file(fname)
 
+    # For first part
+    # print(first_occurrence_of_non_repeats(data) + 4)
+    # For second part
     print(first_occurrence_of_non_repeats(data) + 14)
 
 
