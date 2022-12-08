@@ -91,7 +91,7 @@ def main(fname: str) -> None:
     for line in data:
         parse_data(line, tree, stack, existing)
 
-    # render_tree(tree)
+    render_tree(tree)
 
     nodes = anytree.search.findall(tree, lambda node: node.type == FOLDER and node.weight <= 100000)
 
@@ -112,7 +112,7 @@ def main(fname: str) -> None:
     print(sorted(weights)[0])
 
 if __name__ == "__main__":
-    main("./2022/day7/input/input_small.txt")
+    # main("./2022/day7/input/input_small.txt")
     main("./2022/day7/input/input.txt")
 
     # unittest.main()
