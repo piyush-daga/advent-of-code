@@ -57,86 +57,46 @@ def move_tail(current_head: List[int], current_tail: List[int]):
         move_tail(current_head=current_head, current_tail=current_tail)
 
 
+tail_move_config = {
+    "R": {
+        "index": COL_INDEX,
+        "value": 1
+    },
+    "L": {
+        "index": COL_INDEX,
+        "value": -1
+    },
+    "D": {
+        "index": ROW_INDEX,
+        "value": 1
+    },
+    "U": {
+        "index": ROW_INDEX,
+        "value": -1
+    }
+}
+
+
 def move_head_tail(grid: np.ndarray, current_head_pos: List[int], current_tail_pos: List[int], move: str):
     direction, steps = move.split(" ")
     steps = int(steps)
 
-    if direction == "R":
-        for _ in range(steps):
-            current_head_pos[COL_INDEX] += 1
-            move_tail(current_head=current_head_pos, current_tail=current_tail_pos)
-            grid[current_tail_pos[ROW_INDEX]][current_tail_pos[COL_INDEX]] += 1
-    elif direction == "L":
-        for _ in range(steps):
-            current_head_pos[COL_INDEX] -= 1
-            move_tail(current_head=current_head_pos, current_tail=current_tail_pos)
-            grid[current_tail_pos[ROW_INDEX]][current_tail_pos[COL_INDEX]] += 1
-    elif direction == "D":
-        for _ in range(steps):
-            current_head_pos[ROW_INDEX] += 1
-            move_tail(current_head=current_head_pos, current_tail=current_tail_pos)
-            grid[current_tail_pos[ROW_INDEX]][current_tail_pos[COL_INDEX]] += 1
-    elif direction == "U":
-        for _ in range(steps):
-            current_head_pos[ROW_INDEX] -= 1
-            move_tail(current_head=current_head_pos, current_tail=current_tail_pos)
-            grid[current_tail_pos[ROW_INDEX]][current_tail_pos[COL_INDEX]] += 1
+    for _ in range(steps):
+        current_head_pos[tail_move_config[direction]["index"]] += tail_move_config[direction]["value"]
+        move_tail(current_head=current_head_pos, current_tail=current_tail_pos)
+        grid[current_tail_pos[ROW_INDEX]][current_tail_pos[COL_INDEX]] += 1
 
 
 def move_head_tail_longer(grid: np.ndarray, move: str, pos: List[List[int]]):
     direction, steps = move.split(" ")
     steps = int(steps)
 
-
-    if direction == "R":
-        for i in range(steps):
-            for i, val in enumerate(pos):
-                # which means this is the actual head
-                if i == 0:
-                    val[COL_INDEX] += 1
-                if i == 9:
-                    break
-                move_tail(current_head=val, current_tail=pos[i + 1])
-                if i == 8:
-                    # Increment for the tail
-                    grid[pos[i + 1][ROW_INDEX]][pos[i + 1][COL_INDEX]] += 1
-
-    elif direction == "L":
-        for _ in range(steps):
-            for i, val in enumerate(pos):
-                # which means this is the actual head
-                if i == 0:
-                    val[COL_INDEX] -= 1
-                if i == 9:
-                    break
-                move_tail(current_head=val, current_tail=pos[i + 1])
-                if i == 8:
-                    # Increment for the tail
-                    grid[pos[i + 1][ROW_INDEX]][pos[i + 1][COL_INDEX]] += 1
-    elif direction == "D":
-        for _ in range(steps):
-            for i, val in enumerate(pos):
-                # which means this is the actual head
-                if i == 0:
-                    val[ROW_INDEX] += 1
-                if i == 9:
-                    break
-                move_tail(current_head=val, current_tail=pos[i + 1])
-                if i == 8:
-                    # Increment for the tail
-                    grid[pos[i + 1][ROW_INDEX]][pos[i + 1][COL_INDEX]] += 1
-    elif direction == "U":
-        for _ in range(steps):
-            for i, val in enumerate(pos):
-                # which means this is the actual head
-                if i == 0:
-                    val[ROW_INDEX] -= 1
-                if i == 9:
-                    break
-                move_tail(current_head=val, current_tail=pos[i + 1])
-                if i == 8:
-                    # Increment for the tail
-                    grid[pos[i + 1][ROW_INDEX]][pos[i + 1][COL_INDEX]] += 1
+    for _ in range(steps):
+        for i, val in enumerate(pos[: -1]):
+            if i == 0:
+                val[tail_move_config[direction]["index"]] += tail_move_config[direction]["value"]
+            move_tail(current_head=val, current_tail=pos[i + 1])
+        grid[pos[-1][ROW_INDEX]][pos[-1][COL_INDEX]] += 1
 
 
 def main(fname: str) -> None:
