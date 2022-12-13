@@ -131,7 +131,3 @@ def main(fname: str) -> None:
 if __name__ == "__main__":
     # main("./2022/day9/input/input_small.txt")
     main("./2022/day9/input/input.txt")
-
-    # unittest.main()
-
-    # main("./input/input.txt")
