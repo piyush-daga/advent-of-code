@@ -87,8 +87,6 @@ def main(fname: str) -> None:
     all_pairs.extend([[[2]]])
     all_pairs.extend([[[6]]])
 
-    # print(all_pairs)
-
     s = sorted(all_pairs, key=cmp_to_key(make_comparator(is_in_right_order)))
 
     print((s.index([[2]]) + 1) * (s.index([[6]]) + 1))
